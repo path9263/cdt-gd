@@ -10,6 +10,17 @@ CDT for Godot Engine
 1. Download binary releases from here: <https://github.com/sheepandshepherd/cdt-gd/releases>
 2. Extract into Godot project root
 
+For Windows your file structure should look like this:
+```
+projectFolder
+|-- project.godot
+|-- ConstrainedTriangulation.gdnlib
+|-- ConstrainedTriangulation.gdns
+`-- bin
+    `-- win64
+        `-- libcdt-gd.dll
+```
+
 #### Triangulation
 
 ```gdscript
