@@ -17,7 +17,7 @@ func _draw():
 			draw_line(from, to, Color(1,0,0), 1.0, true )
 	for v in verts.size():
 		var vert = verts[v]
-		print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v))
+		#print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v))  # still need to update get_vertex_triangles TODO
 		draw_circle(vert, 2.5, Color(0,1,0))
 
 func _ready():
@@ -42,6 +42,10 @@ func _ready():
 				edges.append(i + edge_count)
 				edges.append((i+1)%(c.polygon.size()) + edge_count)
 			edge_count += c.polygon.size()
+	# insert any extra points, this must be done after inserting any constrained edges
+	for c in poly.get_children():
+		if c is Position2D:
+				v.append(c.position)
 	
 	# insert all vertices before any edges
 	cdt.insert_vertices(v)
