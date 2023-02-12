@@ -14,3 +14,5 @@ zconf.h.included
 *.TMP
 logs
 Thumbs.db
+vc140.idb
+vc140.pdb
