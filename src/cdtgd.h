@@ -4,7 +4,7 @@
 #include <Reference.hpp>
 #include <vector>
 
-#define CDT_DONT_USE_BOOST_RTREE
+//#define CDT_DONT_USE_BOOST_RTREE  // this is now default? 
 #include <CDT.h>
 
 using Triangulation = CDT::Triangulation<float>;
@@ -13,7 +13,7 @@ namespace godot {
 
 class ConstrainedTriangulation : public Reference {
 	GODOT_CLASS(ConstrainedTriangulation, Reference)
-	Triangulation triangulation = Triangulation((CDT::FindingClosestPoint::Enum)0, 10);
+	Triangulation triangulation = Triangulation();
 	//std::vector<int> queued_edges;
 	int vert_count = 0;
 
@@ -42,7 +42,7 @@ public:
 
 	int get_vertex_count();
 	Vector2 get_vertex(int vertex_index);
-	PoolIntArray get_vertex_triangles(int vertex_index);
+	// PoolIntArray get_vertex_triangles(int vertex_index);
 	PoolVector2Array get_all_vertices();
 
 	int get_triangle_count();

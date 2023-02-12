@@ -4,7 +4,7 @@
 #include <PoolArrays.hpp>
 
 using Point = CDT::V2d<float>;
-using Vertex = CDT::Vertex<float>;
+//using Vertex = CDT::Vertex<float>;
 using Edge = CDT::Edge;
 
 using namespace godot;
@@ -26,7 +26,7 @@ void ConstrainedTriangulation::_register_methods()
 
 	BIND_METHOD(get_vertex_count)
 	BIND_METHOD(get_vertex)
-	BIND_METHOD(get_vertex_triangles)
+	// BIND_METHOD(get_vertex_triangles)
 	BIND_METHOD(get_all_vertices)
 
 	BIND_METHOD(get_triangle_count)
@@ -51,10 +51,11 @@ Vector2 s2g(Point p)
 	return Vector2(p.x, p.y);
 }
 
-Vector2 s2g(Vertex p)
-{
-	return Vector2(p.pos.x, p.pos.y);
-}
+// vertexes are no longer used? 
+// Vector2 s2g(Vertex p)
+// {
+// 	return Vector2(p.pos.x, p.pos.y);
+// }
 
 template<class PA, class T>
 std::vector<T> g2s(const PA &input)
@@ -141,9 +142,9 @@ int ConstrainedTriangulation::get_triangle_at_point(Vector2 point)
 	for(int t = 0; t < triangulation.triangles.size(); ++t)
 	{
 		CDT::VerticesArr3 verts = triangulation.triangles[t].vertices;
-		Point a = triangulation.vertices[verts[0]].pos;
-		Point b = triangulation.vertices[verts[1]].pos;
-		Point c = triangulation.vertices[verts[2]].pos;
+		Point a = triangulation.vertices[verts[0]];
+		Point b = triangulation.vertices[verts[1]];
+		Point c = triangulation.vertices[verts[2]];
 		if(CDT::locatePointTriangle<float>(p, a, b, c) != CDT::PtTriLocation::Outside)
 		{
 			return t;
@@ -158,22 +159,28 @@ int ConstrainedTriangulation::get_vertex_count()
 }
 Vector2 ConstrainedTriangulation::get_vertex(int vertex_index)
 {
-	return s2g(triangulation.vertices[vertex_index].pos);
+	return s2g(triangulation.vertices[vertex_index]);
 }
-PoolIntArray ConstrainedTriangulation::get_vertex_triangles(int vertex_index)
-{
-	PoolIntArray ret;
+// PoolIntArray ConstrainedTriangulation::get_vertex_triangles(int vertex_index)
+// {
+// 	PoolIntArray ret;
 
-	CDT::TriIndVec tris = triangulation.vertices[vertex_index].triangles;
+// 	//CDT::TriIndVec tris = triangulation.vertices[vertex_index].triangles;
 
-	ret.resize(tris.size());
-	PoolIntArray::Write write = ret.write();
-	for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
-	return ret;
-}
+// 	// have to recalculate but shouldn't do this every time we run this function! 
+// 	// maybe see here for more:  https://github.com/artem-ogre/CDT/blob/4dcc8e0b22e2fa4458a172ab7ffa98d79b38db91/CDT/extras/VerifyTopology.h#L35
+// 	CDT::calculateTrianglesByVertex(triangulation.triangles, triangulation.vertices.size());
+
+// 	CDT::TriIndVec tris =
+
+// 	ret.resize(tris.size());
+// 	PoolIntArray::Write write = ret.write();
+// 	for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
+// 	return ret;
+// }
 PoolVector2Array ConstrainedTriangulation::get_all_vertices()
 {
-	PoolVector2Array ret = s2g<Vertex, PoolVector2Array>(triangulation.vertices);
+	PoolVector2Array ret = s2g<Point, PoolVector2Array>(triangulation.vertices);
 	return ret;
 }
 

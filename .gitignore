@@ -16,3 +16,5 @@ logs
 Thumbs.db
 vc140.idb
 vc140.pdb
+.vs/
+demo/.mono/
