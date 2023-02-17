@@ -42,6 +42,13 @@ func _ready():
 				edges.append(i + edge_count)
 				edges.append((i+1)%(c.polygon.size()) + edge_count)
 			edge_count += c.polygon.size()
+		if c is Line2D:
+			v.append_array(c.points)
+			for i in c.points.size():
+				edges.append(i + edge_count)
+				if i != c.points.size() - 1:  # don't add the last edge between the last point and the first since this is a line
+					edges.append((i+1) + edge_count)
+			edge_count += c.points.size()
 	# insert any extra points, this must be done after inserting any constrained edges
 	for c in poly.get_children():
 		if c is Position2D:

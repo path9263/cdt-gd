@@ -38,10 +38,17 @@ __meta__ = {
 }
 
 [node name="Position2D4" type="Position2D" parent="Polygon2D"]
-position = Vector2( 471, 200 )
+position = Vector2( 450, 117 )
 __meta__ = {
 "_gizmo_extents_": 15.0
 }
+
+[node name="Line2D" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 432, 227, 455, 290, 532, 250, 661, 249, 678, 297 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
 
 [node name="HoveredTriangle" type="Polygon2D" parent="."]
 visible = false
