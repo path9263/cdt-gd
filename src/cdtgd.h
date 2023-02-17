@@ -42,7 +42,7 @@ public:
 
 	int get_vertex_count();
 	Vector2 get_vertex(int vertex_index);
-	// PoolIntArray get_vertex_triangles(int vertex_index);
+	PoolIntArray get_vertex_triangles(int vertex_index);
 	PoolVector2Array get_all_vertices();
 
 	int get_triangle_count();

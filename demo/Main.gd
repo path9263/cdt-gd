@@ -17,7 +17,7 @@ func _draw():
 			draw_line(from, to, Color(1,0,0), 1.0, true )
 	for v in verts.size():
 		var vert = verts[v]
-		#print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v))  # still need to update get_vertex_triangles TODO
+		print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v))  # prints some suspiciously large numbers, test this!
 		draw_circle(vert, 2.5, Color(0,1,0))
 
 func _ready():
@@ -51,15 +51,15 @@ func _ready():
 	cdt.insert_vertices(v)
 	cdt.insert_edges(edges)
 	
-	#cdt.erase_super_triangle()
+	cdt.erase_super_triangle()
 	#cdt.erase_outer_triangles()
-	cdt.erase_outer_triangles_and_holes()
+	#cdt.erase_outer_triangles_and_holes()
 	
 	
 	verts = (cdt.get_all_vertices())
 	tris = (cdt.get_all_triangles())
-	print("verts: ", verts)
-	print("tris: ", tris)
+#	print("verts: ", verts)
+#	print("tris: ", tris)
 
 func _input(event):
 	if event is InputEventMouseMotion:

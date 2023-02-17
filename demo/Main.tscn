@@ -20,7 +20,7 @@ color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( 433.306, 341.137, 431.945, 459.489, 563.902, 460.85, 561.181, 384.669, 514.928, 386.029, 514.928, 339.776 )
 
 [node name="Position2D" type="Position2D" parent="Polygon2D"]
-position = Vector2( 844, 254 )
+position = Vector2( 792, 249 )
 __meta__ = {
 "_gizmo_extents_": 15.0
 }

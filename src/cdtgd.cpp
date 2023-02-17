@@ -26,7 +26,7 @@ void ConstrainedTriangulation::_register_methods()
 
 	BIND_METHOD(get_vertex_count)
 	BIND_METHOD(get_vertex)
-	// BIND_METHOD(get_vertex_triangles)
+	BIND_METHOD(get_vertex_triangles)
 	BIND_METHOD(get_all_vertices)
 
 	BIND_METHOD(get_triangle_count)
@@ -161,23 +161,43 @@ Vector2 ConstrainedTriangulation::get_vertex(int vertex_index)
 {
 	return s2g(triangulation.vertices[vertex_index]);
 }
-// PoolIntArray ConstrainedTriangulation::get_vertex_triangles(int vertex_index)
-// {
-// 	PoolIntArray ret;
+PoolIntArray ConstrainedTriangulation::get_vertex_triangles(int vertex_index)
+{
+	PoolIntArray ret;
 
-// 	//CDT::TriIndVec tris = triangulation.vertices[vertex_index].triangles;
+	//ret.append(vertex_index);
 
-// 	// have to recalculate but shouldn't do this every time we run this function! 
-// 	// maybe see here for more:  https://github.com/artem-ogre/CDT/blob/4dcc8e0b22e2fa4458a172ab7ffa98d79b38db91/CDT/extras/VerifyTopology.h#L35
-// 	CDT::calculateTrianglesByVertex(triangulation.triangles, triangulation.vertices.size());
+	
+	if(triangulation.vertTris.size() == 0) // vertTris needs to be recalculated after triangulation is finalized
+	{
+		triangulation.vertTris = CDT::calculateTrianglesByVertex(triangulation.triangles, static_cast<CDT::VertInd>(triangulation.vertices.size()));
+	}
 
-// 	CDT::TriIndVec tris =
+	CDT::TriIndVec tris = triangulation.vertTris[vertex_index];
 
-// 	ret.resize(tris.size());
-// 	PoolIntArray::Write write = ret.write();
-// 	for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
-// 	return ret;
-// }
+	ret.resize(tris.size());
+
+	PoolIntArray::Write write = ret.write();
+	for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
+
+
+	// CDT::calculateTrianglesByVertex(triangulation.triangles, static_cast<CDT::VertInd>(triangulation.vertices.size()));
+	// const CDT::TriIndVec& vTris = triangulation.vertTris[vertex_index];
+	// //ret.resize(vTris.size());
+	// for(auto it = vTris.begin(); it != vTris.end(); ++it)
+    //     {
+	// 		ret.append(vTris[*it]);
+	// 	}
+
+
+	////// old:
+	// CDT::TriIndVec tris = triangulation.vertTris[vertex_index];
+	// ret.resize(tris.size());
+	// PoolIntArray::Write write = ret.write();
+	// for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
+
+	return ret;
+}
 PoolVector2Array ConstrainedTriangulation::get_all_vertices()
 {
 	PoolVector2Array ret = s2g<Point, PoolVector2Array>(triangulation.vertices);
