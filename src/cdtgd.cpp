@@ -164,38 +164,14 @@ Vector2 ConstrainedTriangulation::get_vertex(int vertex_index)
 PoolIntArray ConstrainedTriangulation::get_vertex_triangles(int vertex_index)
 {
 	PoolIntArray ret;
-
-	//ret.append(vertex_index);
-
-	
 	if(triangulation.vertTris.size() == 0) // vertTris needs to be recalculated after triangulation is finalized
 	{
 		triangulation.vertTris = CDT::calculateTrianglesByVertex(triangulation.triangles, static_cast<CDT::VertInd>(triangulation.vertices.size()));
 	}
-
 	CDT::TriIndVec tris = triangulation.vertTris[vertex_index];
-
 	ret.resize(tris.size());
-
 	PoolIntArray::Write write = ret.write();
 	for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
-
-
-	// CDT::calculateTrianglesByVertex(triangulation.triangles, static_cast<CDT::VertInd>(triangulation.vertices.size()));
-	// const CDT::TriIndVec& vTris = triangulation.vertTris[vertex_index];
-	// //ret.resize(vTris.size());
-	// for(auto it = vTris.begin(); it != vTris.end(); ++it)
-    //     {
-	// 		ret.append(vTris[*it]);
-	// 	}
-
-
-	////// old:
-	// CDT::TriIndVec tris = triangulation.vertTris[vertex_index];
-	// ret.resize(tris.size());
-	// PoolIntArray::Write write = ret.write();
-	// for(int i = 0; i < tris.size(); ++i) write[i] = tris[i];
-
 	return ret;
 }
 PoolVector2Array ConstrainedTriangulation::get_all_vertices()

@@ -6,6 +6,9 @@ onready var hovered_tri = $HoveredTriangle
 var holes = []
 var cdt = ConstrainedTriangulation.new()
 
+enum triRemoval { SUPER,OUTER,HOLES }  # triangle removal mode
+export(triRemoval) var removalMode = triRemoval.SUPER   # can be changed from the Inspector window on this Node
+
 var verts
 var tris
 
@@ -17,7 +20,7 @@ func _draw():
 			draw_line(from, to, Color(1,0,0), 1.0, true )
 	for v in verts.size():
 		var vert = verts[v]
-		print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v))  # prints some suspiciously large numbers, test this!
+		print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v)) 
 		draw_circle(vert, 2.5, Color(0,1,0))
 
 func _ready():
@@ -58,9 +61,16 @@ func _ready():
 	cdt.insert_vertices(v)
 	cdt.insert_edges(edges)
 	
-	cdt.erase_super_triangle()
-	#cdt.erase_outer_triangles()
-	#cdt.erase_outer_triangles_and_holes()
+	# triangulate:
+	match removalMode:
+		triRemoval.SUPER:
+			cdt.erase_super_triangle()
+		triRemoval.OUTER:
+			cdt.erase_outer_triangles()
+		triRemoval.HOLES:
+			cdt.erase_outer_triangles_and_holes()
+		_:  # default
+			cdt.erase_super_triangle()
 	
 	
 	verts = (cdt.get_all_vertices())

@@ -5,6 +5,7 @@
 [node name="Node2D" type="Node2D"]
 z_index = 1
 script = ExtResource( 1 )
+removalMode = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
