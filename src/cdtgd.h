@@ -13,7 +13,7 @@ namespace godot {
 
 class ConstrainedTriangulation : public Reference {
 	GODOT_CLASS(ConstrainedTriangulation, Reference)
-	Triangulation triangulation = Triangulation();
+	Triangulation triangulation = Triangulation(CDT::VertexInsertionOrder::Randomized, CDT::IntersectingConstraintEdges::Resolve, 0.1);
 	//std::vector<int> queued_edges;
 	int vert_count = 0;
 

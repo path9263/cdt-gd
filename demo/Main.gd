@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var poly = $Polygon2D
+onready var poly = $OuterPoly
 var hovered_tri_index = -1
 onready var hovered_tri = $HoveredTriangle
 var holes = []
@@ -11,13 +11,18 @@ export(triRemoval) var removalMode = triRemoval.SUPER   # can be changed from th
 
 var verts
 var tris
+var edges = []
 
 func _draw():
+	for e in edges.size() / 2: # draw constrained edges
+		var from = verts[edges[2*e]]
+		var to = verts[edges[2*e + 1]]
+		draw_line(from, to, Color(1,0,0), 3, true )
 	for tri in tris.size() / 3:
 		for i in 3:
 			var from = verts[tris[3*tri + i]]
 			var to = verts[tris[3*tri + (i+1)%3]]
-			draw_line(from, to, Color(1,0,0), 1.0, true )
+			draw_line(from, to, Color(0.07, 0.47, 0.85), 1.0, true )
 	for v in verts.size():
 		var vert = verts[v]
 		print("Triangles of vert ", v, ": ", cdt.get_vertex_triangles(v)) 
@@ -25,7 +30,6 @@ func _draw():
 
 func _ready():
 	var edge_count = poly.polygon.size()
-	var edges = []
 	var v = poly.polygon
 	
 	# insert outer polygon
@@ -48,11 +52,11 @@ func _ready():
 		if c is Line2D:
 			v.append_array(c.points)
 			for i in c.points.size():
-				edges.append(i + edge_count)
 				if i != c.points.size() - 1:  # don't add the last edge between the last point and the first since this is a line
+					edges.append(i + edge_count)
 					edges.append((i+1) + edge_count)
 			edge_count += c.points.size()
-	# insert any extra points, this must be done after inserting any constrained edges
+	# insert any extra points, points are not constrained so this must be done after inserting any constrained edges
 	for c in poly.get_children():
 		if c is Position2D:
 				v.append(c.position)
