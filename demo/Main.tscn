@@ -1,20 +1,25 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 483, 47, 0.174981, -66.2739, -0.174981, 66.2739, 334, 112, -9.19239, -17.3241, 9.19239, 17.3241, 408, 168, 1.05946, -24.3676, -1.05946, 24.3676, 371, 243, 0, 0, 0, 0, 369, 344 )
+}
 
 [node name="Node2D" type="Node2D"]
 z_index = 1
 script = ExtResource( 1 )
-removalMode = 1
+removalMode = 2
 
 [node name="OuterPoly" type="Polygon2D" parent="."]
 z_index = -1
 z_as_relative = false
-polygon = PoolVector2Array( 578.866, 137.081, 577.505, 17.3682, 893, 21, 879, 145, 716.264, 141.162, 716.264, 171.09, 804.688, 173.811, 804.688, 220.064, 766.597, 218.704, 767.958, 289.443, 806.048, 290.803, 803.327, 362.903, 765.237, 365.624, 762.516, 414.597, 808.769, 417.318, 808.769, 478.535, 634.641, 479.895, 636.001, 319.371, 562.541, 323.452, 562.541, 275.839, 540.775, 278.56, 539.415, 362.903, 589.749, 361.543, 589.749, 399.633, 621.037, 398.273, 621.037, 478.535, 397.936, 477.175, 400.915, 225.475, 403.378, 17.3682, 513.568, 16.0078, 514.928, 43.2153, 543.496, 41.8549, 543.496, 93.5491, 513.568, 92.1888, 512.207, 142.523, 547.577, 141.162, 544.856, 225.505, 567.983, 224.145, 567.983, 165.649, 664.569, 168.37, 663.209, 135.721 )
+polygon = PoolVector2Array( 578.866, 137.081, 578, 25, 893, 21, 879, 145, 716.264, 141.162, 716.264, 171.09, 804.688, 173.811, 804.688, 220.064, 766.597, 218.704, 767.958, 289.443, 806.048, 290.803, 803.327, 362.903, 765.237, 365.624, 762.516, 414.597, 808.769, 417.318, 808.769, 478.535, 634.641, 479.895, 636.001, 319.371, 562.541, 323.452, 562.541, 275.839, 540.775, 278.56, 539.415, 362.903, 589.749, 361.543, 589.749, 399.633, 621.037, 398.273, 621.037, 478.535, 397.936, 477.175, 303, 245, 289, 189, 288, 109, 301, 47, 347, 15, 441, 7, 513.568, 16.0078, 514.928, 43.2153, 543.496, 41.8549, 543.496, 93.5491, 513.568, 92.1888, 512.207, 142.523, 547.577, 141.162, 544.856, 225.505, 567.983, 224.145, 567.983, 165.649, 664.569, 168.37, 663.209, 135.721 )
 
 [node name="Hole" type="Polygon2D" parent="OuterPoly"]
 color = Color( 0, 0, 0, 1 )
-polygon = PoolVector2Array( 642.803, 82.6656, 671.371, 44.5752, 733, 72, 731, 125 )
+polygon = PoolVector2Array( 619, 73, 655, 37, 733, 72, 731, 125 )
 
 [node name="Hole2" type="Polygon2D" parent="OuterPoly"]
 color = Color( 0, 0, 0, 1 )
@@ -43,13 +48,25 @@ __meta__ = {
 }
 
 [node name="Position2D4" type="Position2D" parent="OuterPoly"]
-position = Vector2( 450, 117 )
+position = Vector2( 392, 106 )
 __meta__ = {
 "_gizmo_extents_": 15.0
 }
 
 [node name="Position2D5" type="Position2D" parent="OuterPoly"]
 position = Vector2( 690, 362 )
+__meta__ = {
+"_gizmo_extents_": 15.0
+}
+
+[node name="Position2D6" type="Position2D" parent="OuterPoly"]
+position = Vector2( 373, 182 )
+__meta__ = {
+"_gizmo_extents_": 15.0
+}
+
+[node name="Position2D7" type="Position2D" parent="OuterPoly"]
+position = Vector2( 401, 39 )
 __meta__ = {
 "_gizmo_extents_": 15.0
 }
@@ -63,7 +80,7 @@ end_cap_mode = 2
 antialiased = true
 
 [node name="Line2D2" type="Line2D" parent="OuterPoly"]
-points = PoolVector2Array( 495, 122, 643, 111, 705, 37 )
+points = PoolVector2Array( 450, 144, 626, 101, 686, 33 )
 default_color = Color( 0, 0.352941, 0.121569, 1 )
 joint_mode = 2
 begin_cap_mode = 2
@@ -77,6 +94,9 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
+
+[node name="Path2D" type="Path2D" parent="OuterPoly"]
+curve = SubResource( 1 )
 
 [node name="HoveredTriangle" type="Polygon2D" parent="."]
 visible = false

@@ -56,6 +56,14 @@ func _ready():
 					edges.append(i + edge_count)
 					edges.append((i+1) + edge_count)
 			edge_count += c.points.size()
+		if c is Path2D:
+			var curvePoints: PoolVector2Array = c.curve.tessellate(2, 12.0)
+			v.append_array(curvePoints)
+			for i in curvePoints.size():
+				if i != curvePoints.size() - 1:  # don't add the last edge between the last point and the first since this is a line
+					edges.append(i + edge_count)
+					edges.append((i+1) + edge_count)
+			edge_count += curvePoints.size()
 	# insert any extra points, points are not constrained so this must be done after inserting any constrained edges
 	for c in poly.get_children():
 		if c is Position2D:
